@@ -94,6 +94,7 @@ public class SwiftEsysFlutterSharePlugin: NSObject, FlutterPlugin {
         
         let controller = UIApplication.shared.keyWindow!.rootViewController as? UINavigationController
         
+        //Check if it is being opened in a tablet and present controller accordingly.
         if let popOver = activityViewController.popoverPresentationController {
           popOver.sourceView = controller?.view
           controller?.show(activityViewController, sender: self)
