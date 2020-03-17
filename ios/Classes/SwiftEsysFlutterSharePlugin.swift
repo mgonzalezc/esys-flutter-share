@@ -31,11 +31,15 @@ public class SwiftEsysFlutterSharePlugin: NSObject, FlutterPlugin {
         // set up activity view controller
         let activityViewController:UIActivityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
         
-        // present the view controller
-        let controller = UIApplication.shared.keyWindow!.rootViewController as! FlutterViewController
-        activityViewController.popoverPresentationController?.sourceView = controller.view
+        let controller = UIApplication.shared.keyWindow!.rootViewController as? UINavigationController
         
-        controller.show(activityViewController, sender: self)
+        //Check if it is being opened in a tablet and present controller accordingly.
+        if let popOver = activityViewController.popoverPresentationController {
+          popOver.sourceView = controller?.view
+          controller?.show(activityViewController, sender: self)
+        } else {
+          controller?.present(activityViewController, animated: true, completion: nil)
+        }
     }
     
     func file(arguments:Any?) -> Void {
@@ -60,11 +64,15 @@ public class SwiftEsysFlutterSharePlugin: NSObject, FlutterPlugin {
         // set up activity view controller
         let activityViewController:UIActivityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         
-        // present the view controller
-        let controller = UIApplication.shared.keyWindow!.rootViewController as! FlutterViewController
-        activityViewController.popoverPresentationController?.sourceView = controller.view
+        let controller = UIApplication.shared.keyWindow!.rootViewController as? UINavigationController
         
-        controller.show(activityViewController, sender: self)
+        //Check if it is being opened in a tablet and present controller accordingly.
+        if let popOver = activityViewController.popoverPresentationController {
+          popOver.sourceView = controller?.view
+          controller?.show(activityViewController, sender: self)
+        } else {
+          controller?.present(activityViewController, animated: true, completion: nil)
+        }
     }
     
     func files(arguments:Any?) -> Void {
