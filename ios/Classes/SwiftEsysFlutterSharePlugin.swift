@@ -92,10 +92,13 @@ public class SwiftEsysFlutterSharePlugin: NSObject, FlutterPlugin {
         // set up activity view controller
         let activityViewController:UIActivityViewController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         
-        // present the view controller
-        let controller = UIApplication.shared.keyWindow!.rootViewController as! FlutterViewController
-        activityViewController.popoverPresentationController?.sourceView = controller.view
+        let controller = UIApplication.shared.keyWindow!.rootViewController as? UINavigationController
         
-        controller.show(activityViewController, sender: self)
+        if let popOver = activityViewController.popoverPresentationController {
+          popOver.sourceView = controller?.view
+          controller?.show(activityViewController, sender: self)
+        } else {
+          controller?.present(activityViewController, animated: true, completion: nil)
+        }
     }
 }
